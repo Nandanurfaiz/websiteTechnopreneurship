@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>digitalAgency | Jasa Branding & Konten Media Sosial Terjangkau</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <style>
+        :root {
+            --primary: #0f4c3a; /* Hijau tua */
+            --secondary: #1abc9c; /* Hijau tosca */
+            --accent: #f1c40f; /* Kuning emas */
+            --red-alert: #e74c3c;
+            --dark: #2c3e50;
+            --bg-pattern: #f8fcf9;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--dark);
+            background-color: var(--bg-pattern);
+            background-image: radial-gradient(#1abc9c 0.5px, transparent 0.5px);
+            background-size: 20px 20px;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Navbar Responsif --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: 0.3s;
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; z-index: 1001; }
+        .logo span { color: var(--secondary); }
+
+        .nav-right { display: flex; align-items: center; gap: 25px; }
+        
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-weight: 600; transition: 0.3s; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--secondary); }
+
+        .btn-cta {
+            background: var(--primary);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(15, 76, 58, 0.3);
+            white-space: nowrap;
+        }
+        .btn-cta:hover { background: var(--secondary); transform: translateY(-2px); }
+
+        /* Hamburger Menu Icon (Hidden on Desktop) */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+        }
+        .bar { width: 25px; height: 3px; background-color: var(--primary); transition: 0.3s; border-radius: 3px; }
+
+        /* --- Hero Section --- */
+        header {
+            background: linear-gradient(135deg, #0f4c3a 0%, #082d22 100%);
+            color: white;
+            padding: 160px 5% 200px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Pattern Overlay Hero */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; left: 0; width: 100%; height: 100px;
+            background: var(--bg-pattern);
+            clip-path: ellipse(60% 70% at 50% 100%);
+        }
+
+        .hero-title { font-size: 3.5rem; margin-bottom: 20px; font-weight: 800; line-height: 1.2; }
+        .hero-subtitle { font-size: 1.2rem; max-width: 700px; margin: 0 auto 40px; opacity: 0.9; }
+
+        /* --- Section Umum --- */
+        section { padding: 80px 5%; position: relative; }
+        .section-title { text-align: center; color: var(--primary); font-size: 2.5rem; margin-bottom: 10px; font-weight: 800; }
+        .section-subtitle { text-align: center; color: #555; margin-bottom: 60px; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+        /* --- About Section --- */
+        #about { margin-top: -80px; z-index: 10; padding-top: 0; }
+        .about-card-wrapper {
+            background: white;
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .about-image {
+            background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
+            height: 350px; border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .about-image i { font-size: 8rem; color: rgba(15, 76, 58, 0.1); }
+
+        .about-image img {
+            width: 70%; object-fit: cover; border-radius: 20px;
+        }
+
+        /* --- Services --- */
+        .service-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .service-item {
+            background: white; padding: 40px 30px; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: 0.4s;
+            border: 1px solid rgba(0,0,0,0.05); position: relative; overflow: hidden;
+        }
+        .service-item::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--secondary); opacity: 0; transition: 0.3s;
+        }
+        .service-item:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(26, 188, 156, 0.15); }
+        .service-item:hover::before { opacity: 1; }
+        
+        .service-icon { width: 60px; height: 60px; background: #e0f2f1; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--primary); margin-bottom: 25px; transition: 0.3s; }
+        .service-item:hover .service-icon { background: var(--primary); color: var(--accent); }
+
+        /* --- PRICING SECTION (IMPROVED) --- */
+        #pricing {
+            background: linear-gradient(180deg, #0f4c3a 0%, #0a3629 100%); /* Latar Gelap */
+            padding-top: 150px; /* Ruang untuk Wave SVG */
+            padding-bottom: 120px;
+            position: relative;
+            color: white;
+            margin-top: 50px;
+        }
+
+        /* SVG Wave Divider Top */
+        .custom-shape-divider-top {
+            position: absolute;
+            top: 0; left: 0; width: 100%;
+            overflow: hidden; line-height: 0;
+        }
+        .custom-shape-divider-top svg {
+            position: relative; display: block; width: calc(100% + 1.3px); height: 120px;
+        }
+        .custom-shape-divider-top .shape-fill { fill: var(--bg-pattern); }
+
+        #pricing .section-title { color: white; }
+        #pricing .section-subtitle { color: rgba(255,255,255,0.7); }
+
+        .promo-banner {
+            background: var(--accent); color: var(--primary);
+            padding: 10px 20px; font-weight: bold; border-radius: 50px;
+            margin-bottom: 40px; display: inline-flex; align-items: center; gap: 10px;
+            box-shadow: 0 0 20px rgba(241, 196, 15, 0.4);
+        }
+        #timer { font-family: monospace; background: rgba(0,0,0,0.1); padding: 2px 6px; border-radius: 4px; }
+
+        .pricing-grid { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; z-index: 2; position: relative; }
+
+        .price-card {
+            background: white; color: var(--dark);
+            padding: 40px 30px; border-radius: 20px;
+            width: 300px;
+            display: flex; flex-direction: column;
+            transition: 0.4s; position: relative;
+            border: 4px solid transparent;
+        }
+
+        .price-card:hover { transform: translateY(-10px); }
+
+        /* Highlight Popular Card */
+        .price-card.popular {
+            border-color: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .price-card.popular:hover { transform: scale(1.05) translateY(-10px); }
+
+        .discount-badge { position: absolute; top: 15px; right: 15px; background: #ffebee; color: var(--red-alert); padding: 4px 10px; border-radius: 10px; font-size: 0.75rem; font-weight: 800; }
+        .price-card.popular .discount-badge { background: var(--accent); color: var(--primary); }
+
+        .old-price { text-decoration: line-through; color: #999; font-size: 0.9rem; }
+        .price { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin: 5px 0 20px; }
+        .price span { font-size: 0.9rem; color: #777; font-weight: normal; }
+
+        .features-list { list-style: none; padding: 0; margin-bottom: 30px; flex-grow: 1; text-align: left; }
+        .features-list li { margin-bottom: 12px; display: flex; align-items: center; color: #555; font-size: 0.95rem; }
+        .features-list i { color: var(--secondary); margin-right: 10px; width: 20px; }
+
+        .btn-price {
+            width: 100%; padding: 12px; border-radius: 50px; font-weight: bold; text-decoration: none; text-align: center;
+            border: 2px solid var(--primary); color: var(--primary); transition: 0.3s; display: block; box-sizing: border-box;
+        }
+        .btn-price:hover { background: var(--primary); color: white; }
+        
+        .btn-price.fill { background: var(--primary); color: white; border: none; box-shadow: 0 10px 20px rgba(15, 76, 58, 0.2); }
+        .btn-price.fill:hover { background: var(--secondary); transform: translateY(-2px); }
+
+        /* --- Footer --- */
+        footer { background: #05221b; color: white; padding: 60px 5% 30px; text-align: center; border-top: 5px solid var(--secondary); }
+
+        /* ================= MEDIA QUERIES (RESPONSIVE) ================= */
+        @media (max-width: 992px) {
+            .hero-title { font-size: 3rem; }
+            .pricing-grid { flex-direction: column; align-items: center; }
+            .price-card { width: 100%; max-width: 350px; }
+            .price-card.popular { transform: scale(1); border-width: 2px; }
+            .price-card.popular:hover { transform: translateY(-10px); }
+        }
+
+        @media (max-width: 768px) {
+            /* Navbar Mobile Adjustment */
+            .menu-toggle { display: flex; }
+            
+            .nav-right {
+                position: absolute;
+                top: 70px; left: 0; right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 30px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); /* Hidden by default */
+                transition: 0.4s ease-in-out;
+            }
+
+            .nav-right.active {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+
+            .nav-links { flex-direction: column; align-items: center; gap: 20px; width: 100%; }
+            .btn-cta { width: 100%; text-align: center; }
+
+            /* Hero & Section Adjustments */
+            header { padding: 120px 5% 100px; }
+            header::after { height: 50px; clip-path: ellipse(80% 50% at 50% 100%); }
+            .hero-title { font-size: 2.2rem; }
+            
+            #about { margin-top: 0; padding-top: 50px; }
+            .about-card-wrapper { padding: 30px 20px; }
+            .about-grid { grid-template-columns: 1fr; }
+            .about-image { height: 250px; order: -1; } /* Image on top mobile */
+            
+            .section-title { font-size: 2rem; }
+            
+            /* Pricing Mobile */
+            #pricing { padding-top: 100px; }
+            .custom-shape-divider-top svg { height: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="#" class="logo">digital<span>Agency</span>.</a>
+    
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+
+    <div class="nav-right" id="navMenu">
+        <div class="nav-links">
+            <a href="#about" onclick="toggleMenu()">Tentang</a>
+            <a href="#services" onclick="toggleMenu()">Layanan</a>
+            <a href="#pricing" onclick="toggleMenu()">Harga</a>
+        </div>
+        <a href="https://wa.me/6285156189743" class="btn-cta"><i class="fab fa-whatsapp"></i> Konsultasi</a>
+    </div>
+</nav>
+
+<header>
+    <div data-aos="fade-up" data-aos-duration="1000">
+        <h1 class="hero-title">Identitas Bisnis<br>Level Profesional</h1>
+        <p class="hero-subtitle">Solusi branding dan konten kreatif untuk UMKM Indonesia. Tampil keren tanpa bikin dompet tipis.</p>
+        <a href="#pricing" class="btn-cta" style="background: var(--accent); color: var(--primary); padding: 15px 40px; font-size: 1rem; box-shadow: 0 10px 20px rgba(241, 196, 15, 0.3);">Lihat Paket Hemat</a>
+    </div>
+</header>
+
+<section id="about">
+    <div class="about-card-wrapper">
+        <div class="about-grid">
+            <div class="about-text" data-aos="fade-right">
+                <div style="text-transform: uppercase; color: var(--secondary); font-weight: 800; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 10px;">Masalah Anda</div>
+                <h2 style="color: var(--primary); font-size: 2rem; line-height: 1.3; margin-top:0;">Produk Bagus,<br>Tapi Visual Kurang?</h2>
+                <p style="color: #666; line-height: 1.7;">Pelanggan sering menilai buku dari sampulnya. Feed Instagram yang berantakan bikin calon pembeli ragu transfer.</p>
+                <p style="color: #666; line-height: 1.7;"><strong>digitalAgency</strong> membereskan tampilan visual bisnis Anda, sehingga Anda bisa fokus mengurus orderan yang masuk.</p>
+            </div>
+            <div class="about-image" data-aos="fade-left">
+                <img src="Hero1.png">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="services">
+    <h2 class="section-title" data-aos="fade-up">Layanan Kami</h2>
+    <p class="section-subtitle" data-aos="fade-up">Paket lengkap yang paling dibutuhkan usaha rintisan.</p>
+    
+    <div class="service-cards">
+        <div class="service-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-icon"><i class="fas fa-palette"></i></div>
+            <h4>Branding Kit</h4>
+            <p style="color:#666; font-size:0.95rem;">Pembuatan Logo, pemilihan warna, dan font agar bisnis mudah dikenali.</p>
+        </div>
+        
+        <div class="service-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-icon"><i class="fas fa-camera"></i></div>
+            <h4>Konten Sosmed</h4>
+            <p style="color:#666; font-size:0.95rem;">Desain feed Instagram estetik lengkap dengan copywriting yang menjual.</p>
+        </div>
+
+        <div class="service-item" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+            <h4>Landing Page</h4>
+            <p style="color:#666; font-size:0.95rem;">Website simpel satu halaman untuk kartu nama digital yang profesional.</p>
+        </div>
+    </div>
+</section>
+
+<section id="pricing">
+    <div class="custom-shape-divider-top">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+        </svg>
+    </div>
+
+    <div style="text-align: center;">
+        <div class="promo-banner" data-aos="zoom-in">
+            <i class="fas fa-fire"></i> PROMO TERBATAS: <span id="timer">00:00:00</span>
+        </div>
+        <h2 class="section-title">Investasi Hemat</h2>
+        <p class="section-subtitle">Harga mahasiswa, kualitas agensi ibukota.</p>
+    </div>
+    
+    <div class="pricing-grid">
+        <div class="price-card" data-aos="fade-right">
+            <div class="discount-badge">HEMAT 30%</div>
+            <h3>Starter</h3>
+            <span class="old-price">Rp 75.000</span>
+            <div class="price">50k<span>/project</span></div>
+            <ul class="features-list">
+                <li><i class="fas fa-check"></i> 1 Konsep Logo Simpel</li>
+                <li><i class="fas fa-check"></i> Color Palette</li>
+                <li><i class="fas fa-check"></i> 1x Revisi</li>
+                <li style="opacity:0.5; text-decoration: line-through;"><i class="fas fa-times"></i> Desain Feed</li>
+            </ul>
+            <a href="https://wa.me/6285156189743?text=Halo%20mau%20Starter" class="btn-price">Pilih Starter</a>
+        </div>
+
+        <div class="price-card popular" data-aos="zoom-in">
+            <div class="discount-badge">TERLARIS</div>
+            <h3>Social Media</h3>
+            <span class="old-price">Rp 150.000</span>
+            <div class="price">100k<span>/project</span></div>
+            <ul class="features-list">
+                <li><i class="fas fa-check"></i> <strong>Semua Fitur Starter</strong></li>
+                <li><i class="fas fa-check"></i> 3 Desain Feed IG</li>
+                <li><i class="fas fa-check"></i> Riset Hashtag</li>
+                <li><i class="fas fa-check"></i> 2x Revisi</li>
+            </ul>
+            <a href="https://wa.me/6285156189743?text=Halo%20mau%20SocialMedia" class="btn-price fill">Pilih Social Media</a>
+        </div>
+
+        <div class="price-card" data-aos="fade-left">
+            <div class="discount-badge">LENGKAP</div>
+            <h3>Bisnis Pro</h3>
+            <span class="old-price">Rp 250.000</span>
+            <div class="price">150k<span>/project</span></div>
+            <ul class="features-list">
+                <li><i class="fas fa-check"></i> <strong>Semua Fitur Social Media</strong></li>
+                <li><i class="fas fa-check"></i> <strong>Landing Page Web</strong></li>
+                <li><i class="fas fa-check"></i> Link Bio Premium</li>
+                <li><i class="fas fa-check"></i> 3x Revisi</li>
+            </ul>
+            <a href="https://wa.me/6285156189743?text=Halo%20mau%20BisnisPro" class="btn-price">Pilih Bisnis Pro</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div style="max-width: 600px; margin: auto;">
+        <h2 style="color:white; font-size: 1.8rem; margin-bottom: 10px;">digitalAgency.</h2>
+        <p style="opacity: 0.7; font-size: 0.9rem;">Membantu bisnis lokal Go Digital.</p>
+        <div style="margin: 25px 0;">
+            <a href="#" style="color:white; font-size:1.2rem; margin:0 10px;"><i class="fab fa-instagram"></i></a>
+            <a href="#" style="color:white; font-size:1.2rem; margin:0 10px;"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p style="font-size: 0.75rem; opacity: 0.4; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">&copy; 2025 digitalAgency.</p>
+    </div>
+</footer>
+
+<script>
+    // Init Animations
+    AOS.init({ once: true, offset: 50, duration: 800 });
+
+    // Mobile Menu Toggle Logic
+    function toggleMenu() {
+        const nav = document.getElementById('navMenu');
+        nav.classList.toggle('active');
+    }
+
+    // Timer Logic
+    const timerElement = document.getElementById('timer');
+    let targetDate = new Date();
+    targetDate.setHours(targetDate.getHours() + 24);
+
+    function updateTimer() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+        
+        if (distance < 0) {
+            targetDate = new Date();
+            targetDate.setHours(targetDate.getHours() + 24);
+        }
+
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        timerElement.innerHTML = 
+            (hours < 10 ? "0" + hours : hours) + ":" + 
+            (minutes < 10 ? "0" + minutes : minutes) + ":" + 
+            (seconds < 10 ? "0" + seconds : seconds);
+    }
+    setInterval(updateTimer, 1000);
+    updateTimer();
+</script>
+
+</body>
+</html>
