@@ -9,6 +9,12 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <style>
+        /* --- PERBAIKAN 1: GLOBAL RESET --- */
+        /* Ini sangat penting agar padding tidak merusak ukuran elemen */
+        * {
+            box-sizing: border-box;
+        }
+
         :root {
             --primary: #0f4c3a; /* Hijau tua */
             --secondary: #1abc9c; /* Hijau tosca */
@@ -28,6 +34,7 @@
             background-size: 20px 20px;
             overflow-x: hidden;
             scroll-behavior: smooth;
+            width: 100%; /* Memastikan body tidak melebar */
         }
 
         /* --- Navbar Responsif --- */
@@ -35,7 +42,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 5%;
+            padding: 0 5%; /* Padding atas bawah diatur height */
+            height: 80px; /* Tinggi navbar ditetapkan agar layout stabil */
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
@@ -45,7 +53,7 @@
             transition: 0.3s;
         }
 
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; z-index: 1001; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; z-index: 1002; }
         .logo span { color: var(--secondary); }
 
         .nav-right { display: flex; align-items: center; gap: 25px; }
@@ -74,7 +82,7 @@
             flex-direction: column;
             cursor: pointer;
             gap: 5px;
-            z-index: 1001;
+            z-index: 1002; /* Harus lebih tinggi dari nav-right */
         }
         .bar { width: 25px; height: 3px; background-color: var(--primary); transition: 0.3s; border-radius: 3px; }
 
@@ -82,7 +90,7 @@
         header {
             background: linear-gradient(135deg, #0f4c3a 0%, #082d22 100%);
             color: white;
-            padding: 160px 5% 200px;
+            padding: 140px 5% 180px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -120,17 +128,26 @@
             padding: 50px;
             border-radius: 30px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            width: 100%; /* Pastikan lebar penuh */
         }
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        
         .about-image {
             background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
-            height: 350px; border-radius: 20px;
+            /* Ubah height jadi auto atau min-height agar fleksibel */
+            min-height: 350px; 
+            border-radius: 20px;
             display: flex; align-items: center; justify-content: center;
+            overflow: hidden; /* Agar gambar tidak keluar */
         }
-        .about-image i { font-size: 8rem; color: rgba(15, 76, 58, 0.1); }
-
+        
+        /* PERBAIKAN 2: Image Styling */
         .about-image img {
-            width: 70%; object-fit: cover; border-radius: 20px;
+            width: 100%; 
+            height: 100%;
+            object-fit: cover; 
+            border-radius: 20px;
+            display: block;
         }
 
         /* --- Services --- */
@@ -150,17 +167,16 @@
         .service-icon { width: 60px; height: 60px; background: #e0f2f1; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--primary); margin-bottom: 25px; transition: 0.3s; }
         .service-item:hover .service-icon { background: var(--primary); color: var(--accent); }
 
-        /* --- PRICING SECTION (IMPROVED) --- */
+        /* --- PRICING SECTION --- */
         #pricing {
-            background: linear-gradient(180deg, #0f4c3a 0%, #0a3629 100%); /* Latar Gelap */
-            padding-top: 150px; /* Ruang untuk Wave SVG */
+            background: linear-gradient(180deg, #0f4c3a 0%, #0a3629 100%);
+            padding-top: 150px;
             padding-bottom: 120px;
             position: relative;
             color: white;
             margin-top: 50px;
         }
 
-        /* SVG Wave Divider Top */
         .custom-shape-divider-top {
             position: absolute;
             top: 0; left: 0; width: 100%;
@@ -195,7 +211,6 @@
 
         .price-card:hover { transform: translateY(-10px); }
 
-        /* Highlight Popular Card */
         .price-card.popular {
             border-color: var(--accent);
             transform: scale(1.05);
@@ -226,7 +241,7 @@
         /* --- Footer --- */
         footer { background: #05221b; color: white; padding: 60px 5% 30px; text-align: center; border-top: 5px solid var(--secondary); }
 
-        /* ================= MEDIA QUERIES (RESPONSIVE) ================= */
+        /* ================= MEDIA QUERIES (PERBAIKAN UTAMA) ================= */
         @media (max-width: 992px) {
             .hero-title { font-size: 3rem; }
             .pricing-grid { flex-direction: column; align-items: center; }
@@ -236,40 +251,63 @@
         }
 
         @media (max-width: 768px) {
-            /* Navbar Mobile Adjustment */
+            /* Navbar Mobile */
             .menu-toggle { display: flex; }
             
             .nav-right {
                 position: absolute;
-                top: 70px; left: 0; right: 0;
+                top: 80px; /* Sesuai tinggi nav */
+                left: 0; right: 0;
                 background: white;
                 flex-direction: column;
                 padding: 30px;
                 box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); /* Hidden by default */
-                transition: 0.4s ease-in-out;
+                /* Gunakan display none default agar tidak menimpa saat loading */
+                display: none; 
+                width: 100%;
             }
 
             .nav-right.active {
-                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+                display: flex;
+                animation: slideDown 0.3s ease forwards;
+            }
+
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-20px); }
+                to { opacity: 1; transform: translateY(0); }
             }
 
             .nav-links { flex-direction: column; align-items: center; gap: 20px; width: 100%; }
             .btn-cta { width: 100%; text-align: center; }
 
-            /* Hero & Section Adjustments */
+            /* Hero adjustments */
             header { padding: 120px 5% 100px; }
             header::after { height: 50px; clip-path: ellipse(80% 50% at 50% 100%); }
             .hero-title { font-size: 2.2rem; }
+            .hero-subtitle { font-size: 1rem; }
             
-            #about { margin-top: 0; padding-top: 50px; }
-            .about-card-wrapper { padding: 30px 20px; }
-            .about-grid { grid-template-columns: 1fr; }
-            .about-image { height: 250px; order: -1; } /* Image on top mobile */
+            /* About Section - Perbaikan Layout Rusak */
+            #about { margin-top: 0; padding-top: 40px; }
             
-            .section-title { font-size: 2rem; }
+            .about-card-wrapper { 
+                padding: 30px 20px; /* Padding dikurangi agar konten muat */
+                margin-bottom: 30px;
+            }
             
-            /* Pricing Mobile */
+            .about-grid { 
+                grid-template-columns: 1fr; /* Satu kolom */
+                gap: 30px;
+            }
+            
+            .about-image { 
+                min-height: 250px; 
+                order: -1; /* Gambar di atas */
+                width: 100%;
+            }
+            
+            .section-title { font-size: 1.8rem; }
+            
+            /* Pricing */
             #pricing { padding-top: 100px; }
             .custom-shape-divider-top svg { height: 60px; }
         }
@@ -314,7 +352,7 @@
                 <p style="color: #666; line-height: 1.7;"><strong>digitalAgency</strong> membereskan tampilan visual bisnis Anda, sehingga Anda bisa fokus mengurus orderan yang masuk.</p>
             </div>
             <div class="about-image" data-aos="fade-left">
-                <img src="Hero1.png">
+                <img src="Hero1.png" alt="Ilustrasi Solusi">
             </div>
         </div>
     </div>
